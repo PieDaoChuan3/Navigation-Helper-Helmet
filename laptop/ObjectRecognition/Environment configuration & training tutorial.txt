@@ -1,0 +1,37 @@
+Data set labeling tool: labelimg
+
+python: 3.7
+cuda: 10.0
+cudnn: 7.4.1.5
+tensorflow-gpu：1.13.2
+keras：2.1.5
+numpy：1.17.4
+
+reference: https://blog.csdn.net/weixin_44791964/article/details/104702142
+
+set tensorflow-gpu as DEFAULT ENVIORNMENT
+some packages may need to install in pycharm
+execute.exe is the version without command prompt window
+
+Face recognition model training:
+1, Use UI's retraining function to prepare sample
+2, run face_train_use_keras.py
+REMEMBER TO MODIFY PARAMETERS in main if you changed the number of person
+
+Object recognition model training:
+1, use labelimg to label new object you want if you need
+2, Before training, put the label file in the Annotation under the VOC2012 folder under the VOCdevkit folder,
+ Put the picture file in the JPEGImages under the VOC2007 folder under the VOCdevkit folder, run voc2yolo4.py to generate correspond txt file.
+3, Then run voc_annotation.py in the root directory, you need to change the classes to your own classes before running 
+    
+    classes = ["aeroplane", "bicycle", "bird", "boat", "bottle", "bus", "car", "cat", "chair", "cow", "diningtable", "dog", "horse", "motorbike", "person", "pottedplant", "sheep", "sofa", "train", "tvmonitor"]
+
+4, At this time, the corresponding 2012_train.txt will be generated, and each line corresponds to its **picture location** and its **real frame location**. 
+5, Before training, you need to create a new txt document under model_data, enter the class to be classified in the document, and point classes_path to the file in train.py.
+
+for example:
+classes_path = 'model_data/new_classes.txt'
+
+6, run train.py to start training
+7, In the yolo.py file, modify model_path and classes_path to correspond to the trained files; model_path corresponds to the weight file under the logs folder, 
+and classes_path is the class corresponding to model_path 
